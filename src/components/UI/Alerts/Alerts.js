@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { deleteAllProductsFromCart, deleteProductFromCart } from "../../../redux/reducers/cartReducer/cartSlice";
 import { logoutUser } from "../../../redux/reducers/userReducer/userSlice";
+import { deleteMyProduct, getMyProducts } from "../../../axios/Products";
 
 export const NotFoundAlert = (msg) => {
   Swal.fire({
@@ -110,7 +111,7 @@ export const logoutAlert = (msg, msgSuccess, msgConfirm, msgAlert, dispatch, nav
   })
 }
 
-export const deleteProductAlert = (msg, msgSuccess, msgConfirm, msgAlert, dispatch, id) => {
+export const deleteProductAlert = (msg, msgSuccess, msgConfirm, msgAlert, id, token) => {
   Swal.fire({
     title: 'Are you sure?',
     text: msg,
@@ -121,9 +122,9 @@ export const deleteProductAlert = (msg, msgSuccess, msgConfirm, msgAlert, dispat
     confirmButtonText: msgConfirm,
     background: 'var(--bg)',
     color: 'var(--text-white)'
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed) {
-      dispatch(deleteProductFromCart(id))
+      await deleteMyProduct(token, id)
       Swal.fire(
         msgAlert,
         msgSuccess,

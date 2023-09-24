@@ -1,23 +1,30 @@
 import { CartStyled } from "./CartStyled";
 import CartProduct from "../../components/CartProduct/CartProduct";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FcMoneyTransfer } from "react-icons/fc";
 import { ButtonStyled } from "../../components/UI/Button/ButtonStyled";
 import { areYouSureAlert } from "../../components/UI/Alerts/Alerts";
+import { useState, useEffect, useCallback } from "react";
+import { getMyProducts } from "../../axios/Products";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const cartProduct = useSelector((state) => state.cart.cart);
-  const dispatch = useDispatch();
-  const subTotal = cartProduct.reduce(
-    (acc, prod) => prod.price * prod.quantity + acc,
-    0
-  );
+  const [myProducts, setMyProducts] = useState([]);
+
+  const token = useSelector((state) => state.user.token);
+
+  const fetchData = async () => {
+    const prod = await getMyProducts(token);
+    setMyProducts(prod);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <CartStyled>
-      <h2>My products Cart</h2>
-      {cartProduct.length > 0 && (
+      <h2>My Products</h2>
+      {myProducts.length > 0 && (
         <ButtonStyled
           bg="var(--cancel)"
           bgh="var(--cancel-hover)"
@@ -37,58 +44,20 @@ const Cart = () => {
         </ButtonStyled>
       )}
 
-      {cartProduct.map((prod) => {
-        return <CartProduct key={prod.id} {...prod} />;
-      })}
-      {!cartProduct.length ? (
+      {myProducts.length > 0 &&
+        myProducts.map((prod) => {
+          return <CartProduct key={prod._id} token={token} {...prod} />;
+        })}
+      {!myProducts.length && (
         <>
-          <h2>Your cart is Empty 😥.</h2>
+          <h2>You don't have products yet 😥.</h2>
           <h2>
-            If you want to buy a game:{" "}
+            If you want to add a new product:{" "}
             <Link to={"/"} className="go-back-link">
-              Go back.
+              Click here.
             </Link>
           </h2>
         </>
-      ) : (
-        <div className="total-section">
-          <div className="total-section-items">
-            <p>Subtotal:</p>
-            <div className="total-subtotal">
-              <FcMoneyTransfer />
-              <p>{subTotal.toFixed(2)}</p>
-            </div>
-          </div>
-          <div className="total-section-items">
-            <p>Descuento:</p>
-            <p>-25%</p>
-          </div>
-          <hr />
-          <div className="total-section-items">
-            <p>Total:</p>
-            <div className="total-subtotal">
-              <FcMoneyTransfer />
-              <p>{(subTotal - subTotal * 0.25).toFixed(2)}</p>
-            </div>
-          </div>
-          <ButtonStyled
-            bg="var(--accept)"
-            bgh="var(--accept-hover)"
-            col="var(--text-white)"
-            p="0.5rem 1.3rem"
-            onClick={() => {
-              areYouSureAlert(
-                "You're going to buy the products",
-                "¡Congratulations!",
-                "Yes, buy now!",
-                "Thank you for buying",
-                dispatch
-              );
-            }}
-          >
-            Buy now!
-          </ButtonStyled>
-        </div>
       )}
     </CartStyled>
   );

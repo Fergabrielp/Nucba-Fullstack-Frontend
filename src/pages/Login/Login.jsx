@@ -5,32 +5,14 @@ import { ButtonStyled } from "../../components/UI/Button/ButtonStyled.js";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/reducers/userReducer/userSlice.js";
 import { loginSchema } from "../../formik/validationSchema.js";
-import { Formik, useFormik } from "formik";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/fbConfig.js";
+import { useFormik } from "formik";
 import { LoginRegisterAlert } from "../../components/UI/Alerts/Alerts.js";
 import Spinner from "../../components/UI/Spinner/Spinner.jsx";
+import { login } from "../../axios/Login.js";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const handleLogin = async (email, password, resetForm) => {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach(async (user) => {
-      if (
-        (await user.data().email) === email &&
-        (await user.data().password) === password
-      ) {
-        dispatch(loginUser(user));
-        navigate("/");
-        LoginRegisterAlert("success", `Welcome ${user.data().userName}`);
-      } else {
-        LoginRegisterAlert("fail", `Sorry, user does not exists`);
-        resetForm();
-      }
-    });
-  };
 
   const {
     handleSubmit,
@@ -48,8 +30,16 @@ const Login = () => {
 
     validationSchema: loginSchema,
 
-    onSubmit: (formData, { resetForm }) => {
-      handleLogin(formData.email, formData.password, resetForm);
+    onSubmit: async (formData, { resetForm }) => {
+      try {
+        const { payload } = await login(formData);
+        dispatch(loginUser(payload));
+        LoginRegisterAlert("success", `Welcome to Fergames`);
+        navigate("/home");
+      } catch (error) {
+        LoginRegisterAlert("fail", `We've had a problem logging user`);
+        resetForm();
+      }
     },
   });
 

@@ -5,43 +5,38 @@ export const HeroStyled = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3rem 0;
+    margin: 3rem auto;
+    gap: 2rem;
+    padding: 1rem;
+    width: 40rem;
     box-shadow: var(--card-shadow);
+
+    h1{
+        font-size: 2rem;
+    }
 
     img {
         height: 100%;
-        width: 100%;
+
     }
     
     .logo-img{
-        height: 7rem;
-        width: 40rem;
+        height: 2rem;
     }
 
     @media screen and (${device.mobile}){
         flex-direction: column;
         margin-bottom: 2rem;
 
-        .sale-left , .sale-right {
-            display: none;
-        }
-
         .logo-img{
-        height: 6rem;
-        width: 18rem;
+        height: 2rem;
         }
     }
 
     @media screen and (${device.desktop}){
 
-
-        .sale-left , .sale-right {
-            display: none;
-        }
-
         .logo-img{
-            height: 100%;
-            width: 18rem;
+            height: 2rem;
         }
 
     }

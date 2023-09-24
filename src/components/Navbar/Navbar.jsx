@@ -5,20 +5,15 @@ import {
   FaShoppingCart,
   FaUser,
   FaUserAltSlash,
+  FaPlus,
+  FaClipboardList,
 } from "react-icons/fa";
 import { ButtonStyled } from "../UI/Button/ButtonStyled";
 
-import {
-  NavbarStyled,
-  LinkStyled,
-  LogoStyled,
-  BubbleCart,
-} from "./NavbarStyled";
+import { NavbarStyled, LinkStyled, LogoStyled } from "./NavbarStyled";
 
 import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import Search from "../Search/Search";
-import { toggleIsSearching } from "../../redux/reducers/productsReducer/productsSlice";
 import { logoutAlert } from "../UI/Alerts/Alerts";
 import { useState } from "react";
 
@@ -27,17 +22,14 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.user.isLogged);
   const userName = useSelector((state) => state.user.name);
-  const quantity = useSelector((state) => state.cart.quantity);
 
   const navigate = useNavigate();
 
   return (
     <NavbarStyled>
-      <NavLink to="/" onClick={() => dispatch(toggleIsSearching(false))}>
+      <NavLink to={isLogged ? "/home" : "/"}>
         <LogoStyled src={logo} alt="logo imagen" height={40} />
       </NavLink>
-
-      <Search />
       <div className={`burger-menu ${toggleBurgerMenu ? "open-menu" : ""}`}>
         {!isLogged ? (
           <>
@@ -45,8 +37,7 @@ const Navbar = () => {
               className="home-icon"
               to="/"
               onClick={() => {
-                dispatch(toggleIsSearching(false)),
-                  setToggleBurgerMenu(!toggleBurgerMenu);
+                setToggleBurgerMenu(!toggleBurgerMenu);
               }}
             >
               <ButtonStyled
@@ -62,7 +53,7 @@ const Navbar = () => {
               </ButtonStyled>
             </NavLink>
             <NavLink
-              to="/login"
+              to="/"
               onClick={() => setToggleBurgerMenu(!toggleBurgerMenu)}
             >
               <ButtonStyled
@@ -85,8 +76,7 @@ const Navbar = () => {
               className="home-icon"
               to="/"
               onClick={() => {
-                dispatch(toggleIsSearching(false)),
-                  setToggleBurgerMenu(!toggleBurgerMenu);
+                setToggleBurgerMenu(!toggleBurgerMenu);
               }}
             >
               <ButtonStyled
@@ -114,7 +104,21 @@ const Navbar = () => {
               >
                 <div className="icon-p-container">
                   <FaShoppingCart size="1.3rem" color="var(--text-white)" />
-                  <p>MY CART ({quantity})</p>
+                  <p>MY PRODUCTS</p>
+                </div>
+              </ButtonStyled>
+            </NavLink>
+            <NavLink className="cart-icon" to="/add">
+              <ButtonStyled
+                bg="var(--accept)"
+                bgh="var(--accept-hover)"
+                col="var(--text-white)"
+                p="0.5rem 6.5rem"
+              >
+                <div className="icon-p-container">
+                  <FaPlus size="1.3rem" color="var(--text-white)" />
+
+                  <p>ADD PRODUCT</p>
                 </div>
               </ButtonStyled>
             </NavLink>
@@ -155,14 +159,10 @@ const Navbar = () => {
                 setToggleBurgerMenu(!toggleBurgerMenu);
               }}
             />
-            <NavLink
-              className="home-icon"
-              to="/"
-              onClick={() => dispatch(toggleIsSearching(!toggleMenu))}
-            >
+            <NavLink className="home-icon" to={isLogged ? "/home" : "/"}>
               <FaHome size="1.5rem" color="var(--text-white)" />
             </NavLink>
-            <NavLink to="/login">
+            <NavLink to="/">
               <ButtonStyled
                 bg="var(--accept)"
                 bgh="var(--accept-hover)"
@@ -183,16 +183,22 @@ const Navbar = () => {
               className="burger-icon"
               onClick={() => setToggleBurgerMenu(!toggleBurgerMenu)}
             />
-            <NavLink
-              className="home-icon"
-              to="/"
-              onClick={() => dispatch(toggleIsSearching(false))}
-            >
+            <NavLink className="home-icon" to={isLogged ? "/home" : "/"}>
               <FaHome size="1.5rem" color="var(--text-white)" />
             </NavLink>
             <NavLink className="cart-icon" to="/cart">
-              <FaShoppingCart size="1.3rem" color="var(--text-white)" />
-              <BubbleCart>{quantity}</BubbleCart>
+              <FaClipboardList size="1.3rem" color="var(--text-white)" />
+              {/* <BubbleCart>{quantity}</BubbleCart> */}
+            </NavLink>
+            <NavLink to="/add">
+              <ButtonStyled
+                bg="var(--accept)"
+                bgh="var(--accept-hover)"
+                col="var(--text-white)"
+                p="0.5rem 1.3rem"
+              >
+                <FaPlus size="1.3rem" color="var(--text-white)" />
+              </ButtonStyled>
             </NavLink>
             <ButtonStyled
               bg="var(--cancel)"

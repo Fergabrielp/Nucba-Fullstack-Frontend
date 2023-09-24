@@ -20,3 +20,18 @@ export const loginSchema = Yup.object().shape({
         .required("Password is required")
         .matches(regex, "Incorrect password or email"),
 })
+
+export const verifySchema = Yup.object().shape({
+    code: Yup.string().required("Code is required"),
+})
+
+export const productSchema = Yup.object().shape({
+    title: Yup.string().required("Title is required"),
+    thumbnail: Yup.string().required("Thumbnail is required"),
+    shortDescription: Yup.string().required("Short description is required"),
+    description: Yup.string().required("Description is required"),
+    platform: Yup.string().required("Platform is required"),
+    genre: Yup.string().required("Genre is required"),
+    price: Yup.number().positive().required("Price is required"),
+    quantity: Yup.number().positive().required("Quantity is required"),
+})

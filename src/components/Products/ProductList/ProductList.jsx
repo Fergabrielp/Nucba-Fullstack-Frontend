@@ -4,37 +4,39 @@ import {
   ProductListContainerStyled,
   ProductListStyled,
 } from "./ProductListStyled";
-import Spinner from "../../../components/UI/Spinner/Spinner";
+// import Spinner from "../../../components/UI/Spinner/Spinner";
 import ProductCard from "../ProductCard/ProductCard";
 import { ButtonStyled } from "../../UI/Button/ButtonStyled";
 import {
   increaseLimit,
   resetLimit,
 } from "../../../redux/reducers/productsReducer/productsSlice";
-import { useEffect } from "react";
+import { getProducts } from "../../../axios/Products.js";
+import { useEffect, useState } from "react";
 
 const ProductList = () => {
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     dispatch(resetLimit());
+    const fetchData = async () => {
+      const prod = await getProducts(token);
+      setProducts(prod);
+    };
+    fetchData();
   }, []);
-  const { products, loading, error, limit } = useSelector(
-    (state) => state.products
-  );
 
-  if (loading) return <Spinner />;
-  if (error) return <h3 style={{ margin: "2rem" }}>{error}</h3>;
+  // if (loading) return <Spinner />;
+  // if (error) return <h3 style={{ margin: "2rem" }}>{error}</h3>;
 
   return (
     <>
       <ProductListContainerStyled>
         <ProductListStyled>
-          {products?.map((product, index) => {
-            if (limit > index) {
-              return <ProductCard key={product.id} {...product} />;
-            }
-            return null;
+          {products?.map((product) => {
+            return <ProductCard key={product._id} {...product} />;
           })}
         </ProductListStyled>
         <BtnMoreStyled>
