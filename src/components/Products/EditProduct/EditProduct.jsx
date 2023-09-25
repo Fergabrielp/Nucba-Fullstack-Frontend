@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { EditProductStyled } from "./EditProductStyled.js";
 import { ButtonStyled } from "../../UI/Button/ButtonStyled.js";
 import { useFormik } from "formik";
-import { createMyProduct, getOneProduct } from "../../../axios/Products.js";
+import { editMyProduct, getOneProduct } from "../../../axios/Products.js";
 import { useSelector } from "react-redux";
 import { productSchema } from "../../../formik/validationSchema.js";
 import { LoginRegisterAlert } from "../../UI/Alerts/Alerts.js";
@@ -23,6 +23,17 @@ const EditProduct = () => {
     fetchData();
   }, [id]);
 
+  const productValues = {
+    title: "",
+    thumbnail: "",
+    shortDescription: "",
+    description: "",
+    platform: "",
+    genre: "",
+    price: "",
+    quantity: "",
+  };
+
   const {
     handleSubmit,
     handleChange,
@@ -32,22 +43,13 @@ const EditProduct = () => {
     touched,
     isSubmitting,
   } = useFormik({
-    initialValues: {
-      title: "",
-      thumbnail: "",
-      shortDescription: "",
-      description: "",
-      platform: "",
-      genre: "",
-      price: "",
-      quantity: "",
-    },
+    initialValues: productValues,
 
     validationSchema: productSchema,
 
     onSubmit: async (formData, { resetForm }) => {
       try {
-        await createMyProduct(token, formData);
+        await editMyProduct(token, id, formData);
         LoginRegisterAlert("success", `Product successfully edited`);
         navigate("/cart");
       } catch (error) {
@@ -73,7 +75,7 @@ const EditProduct = () => {
                   type="text"
                   placeholder="Title"
                   onChange={handleChange}
-                  value={product.title || ""}
+                  defaultValue={product.title}
                   onBlur={handleBlur}
                   className={errors.title && touched.title ? "input-error" : ""}
                 />
@@ -90,7 +92,7 @@ const EditProduct = () => {
                   type="text"
                   placeholder="Image link"
                   onChange={handleChange}
-                  value={product.thumbnail || ""}
+                  defaultValue={product.thumbnail}
                   onBlur={handleBlur}
                   className={
                     errors.thumbnail && touched.thumbnail ? "input-error" : ""
@@ -109,7 +111,7 @@ const EditProduct = () => {
                   type="text"
                   placeholder="Short Description"
                   onChange={handleChange}
-                  value={product.shortDescription || ""}
+                  defaultValue={product.shortDescription}
                   onBlur={handleBlur}
                   className={
                     errors.shortDescription && touched.shortDescription
@@ -131,7 +133,7 @@ const EditProduct = () => {
                   type="text"
                   placeholder="Description"
                   onChange={handleChange}
-                  value={product.description || ""}
+                  defaultValue={product.description}
                   onBlur={handleBlur}
                   className={
                     errors.description && touched.description
@@ -153,7 +155,7 @@ const EditProduct = () => {
                   type="text"
                   placeholder="Platform"
                   onChange={handleChange}
-                  value={product.platform || ""}
+                  defaultValue={product.platform}
                   onBlur={handleBlur}
                   className={
                     errors.platform && touched.platform ? "input-error" : ""
@@ -173,7 +175,7 @@ const EditProduct = () => {
                   type="text"
                   placeholder="Genre"
                   onChange={handleChange}
-                  value={product.genre || ""}
+                  defaultValue={product.genre}
                   onBlur={handleBlur}
                   className={errors.genre && touched.genre ? "input-error" : ""}
                 />
@@ -192,7 +194,7 @@ const EditProduct = () => {
                   step={0.01}
                   placeholder="Price"
                   onChange={handleChange}
-                  value={product.price || ""}
+                  defaultValue={product.price}
                   onBlur={handleBlur}
                   min={1}
                   className={errors.price && touched.price ? "input-error" : ""}
@@ -211,7 +213,7 @@ const EditProduct = () => {
                   type="number"
                   placeholder="Quantity"
                   onChange={handleChange}
-                  value={product.quantity || ""}
+                  defaultValue={product.quantity}
                   onBlur={handleBlur}
                   min={1}
                   className={
