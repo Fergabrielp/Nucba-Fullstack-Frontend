@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { FaEnvelope, FaLaptopHouse, FaLock, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import { ButtonStyled } from "../../components/UI/Button/ButtonStyled.js";
 import { RegisterContainer } from "./RegisterStyled.js";
 import { useFormik } from "formik";
@@ -35,7 +35,7 @@ const Register = () => {
       try {
         await register(formData);
         setIsRegistered(true);
-        LoginRegisterAlert("success", `User succesfully registred`);
+        LoginRegisterAlert("success", `User succesfully registered`);
       } catch (error) {
         LoginRegisterAlert("fail", `We've had a problem registering user`);
       }
@@ -83,7 +83,7 @@ const Register = () => {
                 <input
                   name="email"
                   type="email"
-                  placeholder="usuario@dominio.com"
+                  placeholder="user@domain.com"
                   onChange={handleChange}
                   value={values.email}
                   onBlur={handleBlur}

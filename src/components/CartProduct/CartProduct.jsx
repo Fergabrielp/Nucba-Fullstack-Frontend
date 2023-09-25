@@ -15,15 +15,15 @@ const CartProduct = ({ _id, quantity, thumbnail, title, price, token }) => {
       <p className="title">{title}</p>
       <div className="price-container">
         <FcMoneyTransfer />
-        <p className="price">{price.toFixed(2)}</p>
+        <p className="price">{price}</p>
       </div>
       <div className="action-section">
         <div className="quantity-section">
-          <p className="quantity">Cant: {quantity}</p>
+          <p className="quantity">Qty: {quantity}</p>
         </div>
         <ButtonStyled
-          bg="var(--cancel)"
-          bgh="var(--cancel-hover)"
+          bg="var(--accept)"
+          bgh="var(--accept-hover)"
           col="var(--text-white)"
           p="0.5rem"
           onClick={() => navigate(`/edit/${_id}`)}

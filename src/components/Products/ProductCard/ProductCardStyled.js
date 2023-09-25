@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { device } from '../../../styles/Breakpoints'
 
 
 export const CardStyled = styled.div`
@@ -8,7 +7,7 @@ export const CardStyled = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 20rem;
-    gap: 1rem;
+    gap: 2rem;
     padding: 2rem;
     background-color: var(--bg-container);
     border-radius: 0.5rem;

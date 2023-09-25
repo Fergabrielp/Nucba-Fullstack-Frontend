@@ -55,7 +55,7 @@ const Login = () => {
             <input
               name="email"
               type="email"
-              placeholder="usuario@dominio.com"
+              placeholder="user@domain.com"
               onChange={handleChange}
               value={values.email}
               onBlur={handleBlur}
@@ -99,11 +99,14 @@ const Login = () => {
             p="0.5rem 1.3rem"
             type="submit"
           >
-            Ingresar
+            Login
           </ButtonStyled>
         )}
         <small>
-          No tienes una cuenta? <Link to="/register">Registrate</Link>
+          Don't you have an account yet?{" "}
+          <Link to="/register">
+            <span>Register</span>
+          </Link>
         </small>
       </form>
     </LoginContainer>

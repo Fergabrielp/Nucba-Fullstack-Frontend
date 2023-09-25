@@ -25,7 +25,7 @@ const ProductCard = ({
           <FcMoneyTransfer />
           <p>{price}</p>
         </div>
-        <div>Cant: {quantity}</div>
+        <div>{quantity} Units</div>
       </div>
     </CardStyled>
   );

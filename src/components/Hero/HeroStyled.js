@@ -35,8 +35,14 @@ export const HeroStyled = styled.nav`
 
     @media screen and (${device.desktop}){
 
+        width: 20rem;
+
         .logo-img{
-            height: 2rem;
+            display: none;
+        }
+
+        h1{
+            font-size: 1.2rem;
         }
 
     }

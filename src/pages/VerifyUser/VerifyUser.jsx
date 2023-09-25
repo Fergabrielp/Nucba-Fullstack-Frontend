@@ -30,7 +30,6 @@ const VerifyUser = ({ email, setIsRegistered }) => {
     onSubmit: async (formData, { resetForm }) => {
       try {
         const { code } = formData;
-        console.log(code, email);
         await verify(email, code);
         setIsRegistered(false);
         LoginRegisterAlert("success", `Email is verified now. Plase login.`);

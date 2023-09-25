@@ -38,7 +38,6 @@ export const getOneProduct = async (token, id) => {
 }
 
 export const editMyProduct = async (token, id, update) => {
-    console.log(token, id, update)
     try {
         await axios.put(`${API_URL}/product/${id}`, update, options("PUT", token))
         return

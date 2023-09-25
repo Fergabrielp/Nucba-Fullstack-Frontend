@@ -14,7 +14,6 @@ export const NavbarStyled = styled.nav`
     z-index: 9999;
 
     .burger-menu {
-
         display: none;
     }
 
@@ -32,16 +31,17 @@ export const NavbarStyled = styled.nav`
             opacity: 0;
             width: 100vw;
             position: absolute;
-            top: 3.5rem;
+            top: -8rem;
             left: 0;
             background-color: var(--bg-container);
             box-shadow: var(--card-shadow);
             transition: all .5s ease;
             gap: 2rem;
-
+            
         }
 
         .open-menu{
+            top: 0;
             height: 50vh;
             opacity: 1;
         }
@@ -51,7 +51,7 @@ export const NavbarStyled = styled.nav`
             justify-content: center;
             align-items: center;
             gap: 1rem;
-            font-size: 1.1rem;
+            font-size: 0.8rem;
             font-weight: bold;
         }
     }
@@ -70,7 +70,6 @@ export const LinkStyled = styled.ul`
     justify-content: center;
     align-items: center;
     position: relative;
-
     gap: 2rem;
 
     .burger-icon {

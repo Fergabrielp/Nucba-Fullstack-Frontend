@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaBars,
@@ -9,13 +10,10 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import { ButtonStyled } from "../UI/Button/ButtonStyled";
-
 import { NavbarStyled, LinkStyled, LogoStyled } from "./NavbarStyled";
-
 import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAlert } from "../UI/Alerts/Alerts";
-import { useState } from "react";
 
 const Navbar = () => {
   const [toggleBurgerMenu, setToggleBurgerMenu] = useState(false);
@@ -74,7 +72,7 @@ const Navbar = () => {
           <>
             <NavLink
               className="home-icon"
-              to="/"
+              to="/home"
               onClick={() => {
                 setToggleBurgerMenu(!toggleBurgerMenu);
               }}

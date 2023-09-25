@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { LoginContainer } from "./LoginStyled.js";
+import { AddProductStyled } from "./AddProductStyled.js";
 import { ButtonStyled } from "../UI/Button/ButtonStyled.js";
 import { productSchema } from "../../formik/validationSchema.js";
 import { useFormik } from "formik";
@@ -47,16 +47,16 @@ const AddProduct = () => {
   });
 
   return (
-    <LoginContainer>
+    <AddProductStyled>
       <h2>Add Product</h2>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="title"></label>
+            <label htmlFor="title">Title</label>
             <input
               name="title"
               type="text"
-              placeholder="Title"
+              placeholder="Tomb Raider"
               onChange={handleChange}
               value={values.title}
               onBlur={handleBlur}
@@ -69,11 +69,11 @@ const AddProduct = () => {
         </div>
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="thumbnail"></label>
+            <label htmlFor="thumbnail">Image</label>
             <input
               name="thumbnail"
               type="text"
-              placeholder="Image link"
+              placeholder="https://awesome-image.jpg"
               onChange={handleChange}
               value={values.thumbnail}
               onBlur={handleBlur}
@@ -88,11 +88,11 @@ const AddProduct = () => {
         </div>
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="shortDescription"></label>
+            <label htmlFor="shortDescription">Short Description</label>
             <input
               name="shortDescription"
               type="text"
-              placeholder="Short Description"
+              placeholder="Tomb Raider explores the intense and gritty origin story of Lara Croft and her ascent from a young woman to a hardened survivor"
               onChange={handleChange}
               value={values.shortDescription}
               onBlur={handleBlur}
@@ -110,11 +110,11 @@ const AddProduct = () => {
 
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="description"></label>
-            <input
+            <label htmlFor="description">Description</label>
+            <textarea
               name="description"
               type="text"
-              placeholder="Description"
+              placeholder="Tomb Raider explores the intense and gritty origin story of Lara Croft and her ascent from a young woman to a hardened survivor. Armed only with raw instincts and the ability to push beyond the limits of human endurance, Lara must fight to unravel the dark history of a forgotten island to escape its relentless hold."
               onChange={handleChange}
               value={values.description}
               onBlur={handleBlur}
@@ -130,11 +130,11 @@ const AddProduct = () => {
 
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="platform"></label>
+            <label htmlFor="platform">Platform</label>
             <input
               name="platform"
               type="text"
-              placeholder="Platform"
+              placeholder="PC"
               onChange={handleChange}
               value={values.platform}
               onBlur={handleBlur}
@@ -150,11 +150,11 @@ const AddProduct = () => {
 
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="genre"></label>
+            <label htmlFor="genre">Genre</label>
             <input
               name="genre"
               type="text"
-              placeholder="Genre"
+              placeholder="Adventure"
               onChange={handleChange}
               value={values.genre}
               onBlur={handleBlur}
@@ -168,12 +168,12 @@ const AddProduct = () => {
 
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="price"></label>
+            <label htmlFor="price">Price</label>
             <input
               name="price"
               type="number"
               step={0.01}
-              placeholder="Price"
+              placeholder="19.99"
               onChange={handleChange}
               value={values.price}
               onBlur={handleBlur}
@@ -188,11 +188,11 @@ const AddProduct = () => {
 
         <div className="input-error-container">
           <div className="input-container">
-            <label htmlFor="quantity"></label>
+            <label htmlFor="quantity">Quantity</label>
             <input
               name="quantity"
               type="number"
-              placeholder="Quantity"
+              placeholder="100"
               onChange={handleChange}
               value={values.quantity}
               onBlur={handleBlur}
@@ -221,7 +221,7 @@ const AddProduct = () => {
           </ButtonStyled>
         )}
       </form>
-    </LoginContainer>
+    </AddProductStyled>
   );
 };
 
