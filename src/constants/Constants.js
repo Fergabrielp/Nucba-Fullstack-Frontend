@@ -1,5 +1,5 @@
 const URL_BASE = "https://free-to-play-games-database.p.rapidapi.com/api/games";
-const API_URL = 'http://localhost:8081'
+const API_URL = 'https://nucba-fullstack-backend.vercel.app'
 
 const options = (method, token) => {
     return {
